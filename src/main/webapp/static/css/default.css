@@ -1,0 +1,195 @@
+:root {
+    /* var(--red-n) 으로 사용 n은 숫자 */
+    /* --red Color
+      Text & Background 사용 규칙
+
+      disabled  : 3 사용
+      general   : 5 사용
+      Heading   : 9 사용
+    */
+    --red-0       :   #FFCBCB;
+    --red-1       :   #FFB4B4;
+    --red-2       :   #FF9E9E;
+    --red-3       :   #FF8787;
+    --red-4       :   #FF7171;
+    --red-5       :   #fa5a5a;
+    --red-6       :   #FF4444;
+    --red-7       :   #FF2D2D;
+    --red-8       :   #FF1717;
+    --red-9       :   #FF0000;
+
+    /* var(--orange-n) 으로 사용 n은 숫자 */
+    /* --orange Color */
+    --orange-0    :   #FFBF6C;
+    --orange-1    :   #FFBA60;
+    --orange-2    :   #FFB554;
+    --orange-3    :   #FFB048;
+    --orange-4    :   #FFAB3C;
+    --orange-5    :   #FFA530;
+    --orange-6    :   #FFA024;
+    --orange-7    :   #FF9B18;
+    --orange-8    :   #FF960C;
+    --orange-9    :   #FF9100;
+
+    /* --yellow Color */
+
+    --yellow-0    :   #E4E4B4;
+    --yellow-1    :   #E7E7A0;
+    --yellow-2    :   #EAEA8C;
+    --yellow-3    :   #EDED78;
+    --yellow-4    :   #F0F064;
+    --yellow-5    :   #F3F350;
+    --yellow-6    :   #F6F63C;
+    --yellow-7    :   #F9F928;
+    --yellow-8    :   #FCFC14;
+    --yellow-9    :   #ffff00;
+
+    /* --green Color */
+
+    --green-0     :   #bff5d1;
+    --green-1     :   #b1ebc4;
+    --green-2     :   #aaecc0;
+    --green-3     :   #9fe7b7;
+    --green-4     :   #94e0ad;
+    --green-5     :   #75c8a0;
+    --green-6     :   #69a081;
+    --green-7     :   #619477;
+    --green-8     :   #5b8d71;
+    --green-9     :   #4e725e;
+
+
+
+
+    /* --blue Color */
+    /* var(--blue-n) 으로 사용 n은 숫자 */
+    --blue-0      :   #A1B8D0;
+    --blue-1      :   #8FAECE;
+    --blue-2      :   #7DA4CD;
+    --blue-3      :   #6B9BCB;
+    --blue-4      :   #5991C9;
+    --blue-5      :   #4887C8;
+    --blue-6      :   #367DC6;
+    --blue-7      :   #2474C4;
+    --blue-8      :   #126AC3;
+    --blue-9      :   #0060C1;
+
+    --cyan        :   #7fccde;
+
+    /* --navy Color */
+    /* var(--navy-n) 으로 사용 n은 숫자 */
+
+    --navy-0      :   #D1E1E8;
+    --navy-1      :   #A8C9D4;
+    --navy-2      :   #A0B3C7;
+    --navy-3      :   #6A7B9A;
+    --navy-4      :   #3A4C7A;
+    --navy-5      :   #3A4C7A;
+    --navy-6      :   #1A2A4D;
+    --navy-7      :   #1C2A48;
+    --navy-8      :   #0D2238;
+    --navy-9      :   #0b0b45;
+
+    --navy-nav    :   #263343;
+    /* --purple Color */
+    /* var(--purple-n) 으로 사용 n은 숫자 */
+    --purple-0    :   #FFECFD;
+    --purple-1    :   #F2D3EE;
+    --purple-2    :   #E5BAE0;
+    --purple-3    :   #D8A0D1;
+    --purple-4    :   #CB87C3;
+    --purple-5    :   #BD6EB4;
+    --purple-6    :   #B055A6;
+    --purple-7    :   #A33B97;
+    --purple-8    :   #962289;
+    --purple-9    :   #89097A;
+
+    /* --white Color */
+    /* var(--white-n) 으로 사용 n은 숫자 */
+    --white-0     :   #ffffff;
+    --white-1     :   #F6F6F6;
+    --white-2     :   #EDEDED;
+    --white-3     :   #E5E5E5;
+    --white-4     :   #DCDCDC;
+    --white-5     :   #D3D3D3;
+    --white-6     :   #CACACA;
+    --white-7     :   #C1C1C1;
+    --white-8     :   #B9B9B9;
+    --white-9     :   #B0B0B0;
+
+
+    /* CC => 204 */
+
+    /* --black Color */
+    /* var(--black-n) 으로 사용 n은 숫자 */
+    --black-0     :   #4F4F4F;
+    --black-1     :   #464646;
+    --black-2     :   #3E3E3E;
+    --black-3     :   #353535;
+    --black-4     :   #2C2C2C;
+    --black-5     :   #232323;
+    --black-6     :   #1A1A1A;
+    --black-7     :   #121212;
+    --black-8     :   #090909;
+    --black-9     :   #000000;
+
+    /* --gray Color */
+    /* var(--gray-n) 으로 사용 n은 숫자 */
+    --gray-0      :   #A7A7A7;
+    --gray-1      :   #9E9E9E;
+    --gray-2      :   #959595;
+    --gray-3      :   #8D8D8D;
+    --gray-4      :   #848484;
+    --gray-5      :   #7B7B7B;
+    --gray-6      :   #727272;
+    --gray-7      :   #6A6A6A;
+    --gray-8      :   #616161;
+    --gray-9      :   #585858;
+
+    /* */
+    --brown-5           :   #463e3e;
+    --black-bg-container:   #1e1e20;
+    --black-bg-content  :   #272829;
+  }
+
+  body{
+    /* background-color: rgb(230, 230, 230); */
+    margin: 0;
+    font-family: "Gothic A1", serif;
+    font-family: "Song Myung", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--black-bg-container);
+
+  }
+  h1 {
+    color: var(--white-5);
+    font-weight: 800;
+    margin: 0;
+  }
+  h2{
+    text-align: center;
+    color: var(--white-5);
+    font-weight: 600;
+  }
+  a{
+    text-decoration: none;
+    color: white;
+  }
+  p {
+    margin: 0;
+  }
+  ul{
+    color: var(--white-3);
+    padding: 0;
+    list-style: none;
+  }
+  button{
+    background-color:transparent;
+    border: none;
+    padding: 0 0;
+    color: var(--white-0);
+    cursor: pointer;
+  }
+  i {
+    margin: 8px;
+  }
