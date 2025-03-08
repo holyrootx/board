@@ -194,3 +194,6 @@
   i {
     margin: 8px;
   }
+  .container{
+  min-height: 780px;
+  }

@@ -1,0 +1,38 @@
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔻🔻🔻 */
+.container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 760px;
+}
+.board-container{
+  padding: 6px;
+}
+.board-wrpper{
+
+  margin: 0 auto;
+}
+.board-item{
+  display: inline-block;
+  transition: 0.3s color;
+  padding: 6px 8px;
+}
+.board-item:hover{
+  color: var(--black-0);
+}
+.board-item:active{
+  color: var(--white-0);
+}
+.board_no {
+  width: 10%;
+}
+.author{
+  width: 10%;
+}
+.title{
+  width: 44%;
+}
+.create_at{
+  width: 22%;
+}
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */
