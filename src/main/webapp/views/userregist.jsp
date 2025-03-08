@@ -11,6 +11,10 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     <link rel="stylesheet" href="../static/css/default.css">
     <link rel="stylesheet" href="../static/css/footer.css">
     <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/userregist.css">
+    <!-- J-query 연결 Embed Code Start-->
+    <script src="https://code.jquery.com/jquery-3.3.0.js" integrity="sha256-TFWSuDJt6kS+huV+vVlyV1jM3dwGdeNWqezhTxXB/X8=" crossorigin="anonymous"></script>
+    <!-- J-query 연결 Embed Code End-->
     <title>Main Page</title>
 
 </head>
@@ -26,63 +30,50 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     <!-- Content 글자색 var(--white-5; 추천-->
 
 
-    <div class="container">
-        <h1>회원가입</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <div>
+<div class="container">
+  <h1>회원가입</h1>
+
+  <div class="form-container">
+    <h2 class="form-intro">회원가입</h2>
+    <form method="POST" action="/board/UserRegistController" class="form-wrapper">
         <!-- ContextPath/Controller경로 -->
-        <form method="POST" action="/board/UserRegistController">
-            <div>
-                <input type="text" id="user_id_input"name="user_id" placeholder="아이디 입력" required>
-            </div>
-            <div>
-                <input type="password" id="user_pass" name="user_pass" placeholder="비밀번호 입력" required>
-            </div>
-            <div>
-                <input type="password" id="user_pass_check" placeholder="비밀번호 확인" required>
-            </div>
-            <div>
-                <input type="text" name="user_name" placeholder="이름 입력" required>
-            </div>
-            <div>
-                <input type="email" name="user_email" placeholder="이메일 입력" required>
-            </div>
-            <div>
-                <input type="text" name="user_birth" placeholder="YYYY-MM-DD" required>
-
-            </div>
-
-            <div>
-                <select name="user_gender" required>
-                    <option disabled>성별 선택</option>
-                    <option value="남자">남자</option>
-                    <option value="여자">여자</option>
-                </select>
-            </div>
-
-            <div>
-                <input type="submit">
-            </div>
-        </form>
+        <div class="form-input-container posi-relative">
+            <input type="text" class="input-design id-check" id="user_id_input"name="user_id" placeholder="아이디 입력" required>
+            <button class="id-check id-check-btn-design">아이디 중복 검사</button>
         </div>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-        <h1 >자자</h1>
-    </div>
+        <div class="form-input-container">
+            <input type="password" class="input-design" id="user_pass" name="user_pass" placeholder="비밀번호 입력" required>
+        </div>
+        <div class="form-input-container">
+            <input type="password" class="input-design" id="user_pass_check" placeholder="비밀번호 확인" required>
+        </div>
+        <div class="form-input-container">
+            <input type="text" class="input-design" name="user_name" placeholder="이름 입력" required>
+        </div>
+        <div class="form-input-container">
+            <input type="email" class="input-design" name="user_email" placeholder="이메일 입력" required>
+        </div>
+        <div class="form-input-container">
+            <input type="text" class="input-design" name="user_birth" placeholder="YYYY-MM-DD" required>
+
+        </div>
+
+        <div>
+            <div>
+              남자 : <input type="radio" class="input-radio-design" name="user_gender" value="남자" checked required>
+            </div>
+            <div>
+              여자 : <input type="radio" class="input-radio-design" name="user_gender" value="여자" required>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" class="btn-design make-pudding">
+        </div>
+    </form>
+  </div>
+
+</div>
 
 
      <!-- 여기다가 MAIN 코드 작성-->

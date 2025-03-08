@@ -160,7 +160,7 @@
     font-style: normal;
     background-color: var(--black-bg-container);
     text-align: center;
-
+    color: var(--white-5);
   }
   h1 {
     color: var(--white-5);

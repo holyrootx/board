@@ -1,0 +1,84 @@
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔻🔻🔻 */
+.container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 760px;
+}
+.form-container{
+  background-color: var(--black-bg-content);
+  border-radius: 28px;
+}
+.form-intro{
+    margin: 0px;
+    padding: 12px 0px;
+}
+.form-wrapper{
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 12px;
+  padding: 24px;
+  border-radius: 28px;
+  background-color: var(--black-4);
+
+}
+
+.form-input-container{
+  margin: 2px 0px;
+}
+.posi-relative{
+  position: relative;
+
+}
+.id-check {
+  position: relative;
+  left: 60px;
+}
+.id-check-btn-design{
+  color: white;
+  background-color: var(--black-3);
+  padding: 4px 8px;
+}
+.input-design{
+  width: 180px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+
+}
+
+.btn-design{
+  border-radius: 8px;
+  display: inline-block;
+  margin: 8px;
+  color: var(--white-0);
+  padding: 12px 24px;
+  border: none;
+  width: 180px;
+  font-size: 24px bold;
+  background-color: var(--black-3);
+
+}
+/* 푸딩처럼 찰랑찰랑 🔻🔻🔻*/
+@keyframes make-pudding{
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+}
+
+.make-pudding {
+  /* 기본 스타일이 여기에 추가될 수 있음 */
+}
+.make-pudding:hover {
+  animation-name: make-pudding;
+  animation-duration: 0.4s;
+
+}
+/* 푸딩처럼 찰랑찰랑 🔺🔺🔺*/
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */
