@@ -21,8 +21,8 @@ public class DBConnection {
 
         try {
             String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-            String id = "boardDB";
-            String pass = "boardDB";
+            String id = "boardPR";
+            String pass = "boardPR";
             con = DriverManager.getConnection(url,id,pass);
             con.setAutoCommit(false);
         } catch(Exception e) {

@@ -18,9 +18,19 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     <%
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
-        String a = request.getContextPath();
+
+        String user_no = (String)session.getAttribute("user_no");
+        System.out.println((String)session.getAttribute("user_no"));
+        if(user_no == null){
     %>
-    <jsp:include page="/static/html/guest_header.html"/>
+        <jsp:include page="/static/html/guest_header.html"/>
+    <%
+        } else{
+    %>
+        <jsp:include page="/static/html/auth_header.html"/>
+    <%
+        }
+    %>
     <!-- 여기다가 MAIN 코드 작성-->
     <!-- 전체 배경색 var(--black-bg-container);-->
     <!-- Content 배경색 var(--black-5); 추천-->
@@ -29,7 +39,6 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
 
     <div class="container">
         <h1 >메인</h1>
-        <h1> <%=a%></h1>
         <h1> 자자</h1>
         <h1> 자자</h1>
         <h1>자자</h1>

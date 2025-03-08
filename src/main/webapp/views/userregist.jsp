@@ -39,7 +39,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         <!-- ContextPath/Controller경로 -->
         <div class="form-input-container posi-relative">
             <input type="text" class="input-design id-check" id="user_id_input"name="user_id" placeholder="아이디 입력" required>
-            <button class="id-check id-check-btn-design">아이디 중복 검사</button>
+            <button class="id-check id-check-btn-design" id="user_id_check" >아이디 중복 검사</button>
         </div>
         <div class="form-input-container">
             <input type="password" class="input-design" id="user_pass" name="user_pass" placeholder="비밀번호 입력" required>
@@ -60,10 +60,10 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
 
         <div>
             <div>
-              남자 : <input type="radio" class="input-radio-design" name="user_gender" value="남자" checked required>
+              남자 : <input type="radio" class="input-radio-design" name="user_gender" value="남" checked required>
             </div>
             <div>
-              여자 : <input type="radio" class="input-radio-design" name="user_gender" value="여자" required>
+              여자 : <input type="radio" class="input-radio-design" name="user_gender" value="여" required>
             </div>
         </div>
 

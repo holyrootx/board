@@ -9,6 +9,18 @@ public class UserDTO {
     private String user_gender;
     private Date user_birth;
 
+    public UserDTO(){
+        super();
+    }
+    public UserDTO(String user_id, String user_pass, String user_email, String user_name, String user_gender, Date user_birth) {
+        this.user_id = user_id;
+        this.user_pass = user_pass;
+        this.user_email = user_email;
+        this.user_name = user_name;
+        this.user_gender = user_gender;
+        this.user_birth = user_birth;
+    }
+
     public int getUser_no() {
         return user_no;
     }
@@ -63,5 +75,18 @@ public class UserDTO {
 
     public void setUser_birth(Date user_birth) {
         this.user_birth = user_birth;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "user_no=" + user_no +
+                ", user_id='" + user_id + '\'' +
+                ", user_pass='" + user_pass + '\'' +
+                ", user_email='" + user_email + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_gender='" + user_gender + '\'' +
+                ", user_birth=" + user_birth +
+                '}';
     }
 }
