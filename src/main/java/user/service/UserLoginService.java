@@ -25,11 +25,11 @@ public class UserLoginService{
         close(conn);
         return isValidUser;
     }
-    public String getUserNoService(String user_id, String user_pass){
+    public Integer getUserNoService(String user_id, String user_pass){
         Connection conn = getConnection();
         UserDAO userDAO = new UserDAO(conn);
 
-        String userNo = String.valueOf(userDAO.getUserNo(user_id,user_pass));
+        Integer userNo = Integer.valueOf(userDAO.getUserNo(user_id,user_pass)) ;
 
         close(conn);
         return userNo;

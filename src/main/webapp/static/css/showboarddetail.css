@@ -1,0 +1,113 @@
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔻🔻🔻 */
+.container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 760px;
+}
+.board-container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 6px;
+  background-color: var(--black-7);
+  border-radius: 12px;
+}
+.board-wrapper{
+  transition: 0.3s color;
+  padding: 6px 8px;
+
+}
+.board-info-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title{
+  margin-top: 6px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+.content-box{
+
+
+}
+.board-content{
+  padding-left: 6px;
+  padding-top: 6px;
+  padding-bottom: 12px;
+  font-size: 18px;
+  text-align: left;
+  word-break: break-word;
+
+}
+
+.comment-container{
+  width: 80%;
+  margin: 6px auto;
+  padding: 6px;
+  background-color: var(--black-7);
+  border-radius: 12px;
+}
+.comment-continer-title{
+  text-align: left;
+  padding-bottom: 6px;
+  font-weight: bold;
+}
+.writing-place-container{
+  padding-left: 6px;
+  padding-top: 6px;
+  padding-bottom: 12px;
+}
+.writing-place-comment{
+  width: 100%;
+  background-color: var(--black-2);
+  border: none;
+  text-align: left;
+  color: var(--white-0);
+}
+.btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.write-btn{
+  padding: 2px 6px;
+  background-color: var(--black-2);
+  color: var(--white-0);
+}
+
+.comment-wrapper{
+  padding: 6px 8px;
+}
+.comment-info-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white-9);
+}
+.comment-content{
+  padding-left: 6px;
+  padding-top: 6px;
+  padding-bottom: 12px;
+  font-size: 16px;
+  text-align: left;
+  word-break: break-word;
+}
+.reply-container{
+  width: 80%;
+  margin: 3px auto;
+  padding: 6px;
+  background-color: var(--black-6);
+  border-radius: 12px;
+}
+.reply-wrapper{
+  padding: 6px 8px;
+  padding-left: 24px;
+}
+.reply-info-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white-9);
+}
+
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */

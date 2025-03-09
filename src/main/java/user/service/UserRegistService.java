@@ -46,11 +46,11 @@ public class UserRegistService {
         return registSuccessed;
 
     }
-    public String getUserNoService(UserDTO newUser){
+    public Integer getUserNoService(UserDTO newUser){
         Connection conn = getConnection();
         UserDAO userDAO = new UserDAO(conn);
 
-        String userNo = String.valueOf(userDAO.getUserNo(newUser.getUser_name()));
+        Integer userNo = userDAO.getUserNo(newUser.getUser_name());
 
         close(conn);
         return userNo;

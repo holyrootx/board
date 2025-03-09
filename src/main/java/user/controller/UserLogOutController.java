@@ -12,7 +12,7 @@ public class UserLogOutController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String user_no = (String)session.getAttribute("user_no");
+        Integer user_no = (Integer)session.getAttribute("user_no");
         if(user_no == null){
             resp.sendRedirect("/board/views/main.jsp");
             // 너는 잘못된 접근을 하였다.

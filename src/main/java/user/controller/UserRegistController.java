@@ -48,7 +48,7 @@ public class UserRegistController extends HttpServlet{
         if(registSuccessed){
             System.out.println("등록되었습니다.");
             HttpSession session = req.getSession();
-            String userNo = userRegistService.getUserNoService(userDTO);
+            Integer userNo = userRegistService.getUserNoService(userDTO);
             session.setAttribute("user_no",userNo);
             // 등록 성공
             resp.sendRedirect("/board/views/main.jsp");

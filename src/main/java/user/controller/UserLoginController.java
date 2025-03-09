@@ -41,7 +41,7 @@ public class UserLoginController extends HttpServlet{
 
 
 
-        String userNo = userLoginService.getUserNoService(userId,userPass);
+        Integer userNo = userLoginService.getUserNoService(userId,userPass);
         System.out.println("DAO 과정 끝난 후 userNo 검사 : "+userNo);
         HttpSession session = req.getSession();
         session.setAttribute("user_no",userNo);

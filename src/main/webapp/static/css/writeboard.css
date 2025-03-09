@@ -46,6 +46,7 @@
   border-radius: 6px;
   resize: none;
   background-color: var(--black-1);
+  color: var(--white-0);
 }
 
 /* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */
