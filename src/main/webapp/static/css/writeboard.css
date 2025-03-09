@@ -1,0 +1,51 @@
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔻🔻🔻 */
+.container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 760px;
+}
+.board-container{
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 16px;
+  padding: 24px;
+  background-color: var(--black-3);
+
+}
+.form-intro{
+  margin-bottom: 10px;
+}
+.input-wrapper{
+  width: 80%;
+  margin: 0 auto;
+}
+.input-title{
+  width: 80%;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 24px;
+  text-align: left;
+  border: none;
+}
+.input-content{
+  width: 80%;
+  height: 360px;
+  font-size: 24px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-align: left;
+  border: none;
+  margin-top: 4px;
+  margin-bottom: 1px;
+}
+.input-submit{
+  width: 80%;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  resize: none;
+  background-color: var(--black-1);
+}
+
+/* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */
