@@ -20,8 +20,8 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
 
-        String user_no = (String)session.getAttribute("user_no");
-        System.out.println((String)session.getAttribute("user_no"));
+        Integer user_no = (Integer)session.getAttribute("user_no");
+        System.out.println((Integer)session.getAttribute("user_no"));
         if(user_no == null){
     %>
         <jsp:include page="/static/html/guest_header.html"/>

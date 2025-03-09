@@ -22,7 +22,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
 
-        String user_no = (String)session.getAttribute("user_no");
+        Integer user_no = (Integer)session.getAttribute("user_no");
 
         ArrayList<BoardDTO> boardDTOList = new ArrayList<>();
 
@@ -31,7 +31,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         <jsp:include page="/static/html/guest_header.html"/>
         <script type="text/javascript">
             alert("로그인 후 접근가능한 페이지 입니다.");
-            window.location.href = "userlogin.jsp";
+            window.location.href = "/board/views/userlogin.jsp";
         </script>
     <%
 
@@ -57,10 +57,10 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
 
         <div class="board-container">
             <div class="board-wrapper">
-              <a href="#" class="board-item board_no"><%=boardDTO.getBoard_no()%></a>
-              <a href="#" class="board-item author"><%=boardDTO.getUser_name()%></a>
-              <a href="#" class="board-item title"><%=boardDTO.getTitle()%></a>
-              <a href="#" class="board-item create_at"><%=boardDTO.getCreate_at()%></a>
+              <a href="/board/ShowBoardDetailController?board_no=<%=boardDTO.getBoard_no()%>" class="board-item board_no"><%=boardDTO.getBoard_no()%></a>
+              <a href="/board/ShowBoardDetailController?board_no=<%=boardDTO.getBoard_no()%>" class="board-item author"><%=boardDTO.getUser_name()%></a>
+              <a href="/board/ShowBoardDetailController?board_no=<%=boardDTO.getBoard_no()%>" class="board-item title"><%=boardDTO.getTitle()%></a>
+              <a href="/board/ShowBoardDetailController?board_no=<%=boardDTO.getBoard_no()%>" class="board-item create_at"><%=boardDTO.getCreate_at()%></a>
             </div>
         </div>
     <%
