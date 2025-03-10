@@ -8,20 +8,32 @@ import java.util.ArrayList;
 import static commonUtil.DBConnection.*;
 import board.dao.BoardDAO;
 import board.dto.BoardDetailDTO;
+import comment.dao.CommentDAO;
+import comment.dto.CommentDTO;
 
 public class ShowBoardDetailService {
 
-    public BoardDetailDTO getBoardDetail(Integer board_no){
+    public BoardDTO getBoardDetail(Integer board_no){
         Connection conn = getConnection();
-        BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
+        BoardDTO boardDTO = new BoardDTO();
 
         BoardDAO boardDAO = new BoardDAO(conn);
-        boardDetailDTO = boardDAO.showBoardDetail(board_no);
+
+        boardDTO = boardDAO.showBoardDetail(board_no);
 
 
 
+        close(conn);
+        return boardDTO;
+    }
+    public ArrayList<CommentDTO> getCommentDTO(Integer board_no){
+        Connection conn = getConnection();
+        ArrayList<CommentDTO> commentDTOList = new ArrayList<>();
 
-        return boardDetailDTO;
+        CommentDAO commentDAO  = new CommentDAO(conn);
+        commentDTOList = commentDAO.showCommentOfBoard(board_no);
+        close(conn);
+        return commentDTOList;
 
     }
 }

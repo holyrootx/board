@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"  isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "board.dto.BoardDTO" %>
+<%@ page import = "comment.dto.CommentDTO" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +23,10 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     <%
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
-
+        int commentLength = 0;
         Integer user_no = (Integer)session.getAttribute("user_no");
-
+        ArrayList<CommentDTO> commentDTOList = new ArrayList<>();
+        BoardDTO boardDTO = null;
         if(user_no == null){
     %>
         <jsp:include page="/static/html/guest_header.html"/>
@@ -34,39 +37,42 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     <%
 
         } else{
+        // 로그인이 된 사용자면
 
     %>
 
         <jsp:include page="/static/html/auth_header.html"/>
     <%
+        boardDTO = (BoardDTO)request.getAttribute("boardDTO");
+        commentDTOList = (ArrayList<CommentDTO>)request.getAttribute("commentDTOList");
+
+        commentLength = commentDTOList.size();
+
         }
     %>
     <!-- Main-container Start-->
     <div class="container">
         <div class="board-container">
             <div class="board-wrapper">
-                <h2 class="title">아 진짜 개쩌는 일 있었음</h2>
+                <h2 class="title"><%=boardDTO.getTitle()%></h2>
                 <div class="board-info-container">
                     <div class="author-container">
-                        <span class="author">김용식</span>
+                        <span class="author"><%=boardDTO.getUser_name()%></span>
                     </div>
                     <div class="create-time-container">
-                        <span class="create-time">2025-03-09 20:08:34</span>
+                        <span class="create-time"><%=boardDTO.getCreate_at()%></span>
                     </div>
                 </div>
 
                 <div class="content-box">
-                    <p class="board-content">
-                        zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz<br>
-
-                    </p>
+                    <p class="board-content"><%=boardDTO.getContent()%></p>
                 </div>
             </div>
         </div>
-        <div class="comment-container">
+        <div class="comment-form-container">
             <div class="comment-wrapper">
-                <p class="comment-continer-title">댓글을 남겨주세요</p>
-                <form action="/comment/WriteCommentController" method="POST">
+                <p class="comment-container-title">댓글을 남겨주세요</p>
+                <form action="/comment/WriteCommentController?ref=0" method="POST">
                     <div class="writing-place-container">
                         <textarea class="writing-place-comment" name="comment_content"></textarea>
                     </div>
@@ -76,44 +82,61 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                 </form>
             </div>
         </div>
+    <%
+        if(commentLength == 0){
+            System.out.println(commentDTOList.size()+"jsp에서 실행됨");
+    %>
+        <h2>댓글이 없습니다.</h2>
+    <%
+        } else {
+        for(int i = 0; i <  commentLength; i++){
+    %>
+    <%
+        if (commentDTOList.get(i).getRef() == 0){
+
+    %>
         <div class="comment-container">
             <div class="comment-wrapper">
                 <div class="comment-info-container">
                     <div class="author-container">
-                        <span class="author">김용식</span>
+                        <span class="author"><%=commentDTOList.get(i).getUser_name() %></span>
                     </div>
                     <div class="create-time-container">
-                        <span class="create-time">2025-03-09 20:08:34</span>
+                        <span class="create-time"><%=commentDTOList.get(i).getCreate_at() %></span>
                     </div>
                 </div>
                 <div class="comment-content-box">
-                    <p class="comment-content">
-                        zz
-                    </p>
+                    <p class="comment-content"><%=commentDTOList.get(i).getContent() %></p>
                 </div>
             </div>
         </div>
+    <%
+        } else{
+
+    %>
         <div class="reply-container">
             <div class="reply-wrapper">
                 <div class="reply-info-container">
                     <div class="author-container">
-                        <span class="author">김용식</span>
+                        <span class="author"><%=commentDTOList.get(i).getUser_name() %></span>
                     </div>
                     <div class="create-time-container">
-                        <span class="create-time">2025-03-09 20:08:34</span>
+                        <span class="create-time"><%=commentDTOList.get(i).getCreate_at() %></span>
                     </div>
                 </div>
                 <div class="comment-content-box">
-                    <p class="comment-content">
-                        나가
-                    </p>
+                    <p class="comment-content"><%=commentDTOList.get(i).getContent() %></p>
                 </div>
             </div>
         </div>
-        <div class="reply-container">
+        <%
+        if(i + 1 == commentLength || commentDTOList.get(i+1).getRef() == 0){
+            // 다음이 없거나, 다음 댓글 객체가 답글이아닌 댓글 인 경우
+        %>
+        <div class="reply-form-container">
             <div class="reply-wrapper">
-                <p class="comment-continer-title">답글을 남겨주세요</p>
-                <form action="/comment/WriteCommentController" method="POST">
+                <p class="comment-container-title">답글을 남겨주세요</p>
+                <form action="/comment/WriteCommentController?ref=<%=commentDTOList.get(i).getRef()%>" method="POST">
                     <div class="writing-place-container">
                         <textarea class="writing-place-comment" name="comment_content"></textarea>
                     </div>
@@ -124,9 +147,23 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
 
             </div>
         </div>
+     <%
+     //if문
+     }
+     // else문 닫는 대괄호
+     }
+     // for문 닫는 대괄호
+     }
+     // else문 닫는 대괄호
+     }
+     %>
     </div>
 
     <!-- Main-container End-->
     <jsp:include page="/static/html/footer.html"/>
+
+    <script>
+    </script>
+
 </body>
 </html>

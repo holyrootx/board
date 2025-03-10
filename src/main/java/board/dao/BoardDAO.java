@@ -97,12 +97,31 @@ public class BoardDAO {
         return myBoardList;
     }
 
-    public BoardDetailDTO showBoardDetail(Integer board_no){
-        BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
-        String sql = "SELECT ";
+    public BoardDTO showBoardDetail(Integer board_no){
+        BoardDTO boardDTO = new BoardDTO();
+        String sql = "SELECT * "
+                + " FROM  users u "
+                + " JOIN boards b "
+                + " ON u.user_no = b.user_no"
+                + " WHERE b.board_no = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,board_no);
+            rs= pstmt.executeQuery();
+            if(rs.next()){
+                boardDTO.setBoard_no(rs.getInt("board_no"));
+                boardDTO.setUser_no(rs.getInt("user_no"));
+                boardDTO.setUser_name(rs.getString("user_name"));
+                boardDTO.setTitle(rs.getString("title"));
+                boardDTO.setContent(rs.getString("content"));
+                boardDTO.setCreate_at(rs.getTimestamp("create_at"));
+                boardDTO.setUpdate_at(rs.getTimestamp("update_at"));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-
-        return boardDetailDTO;
+        return boardDTO;
 
     }
 

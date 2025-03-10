@@ -2,10 +2,11 @@ package comment.dto;
 
 import java.sql.Timestamp;
 
-public class commentDTO {
+public class CommentDTO {
     private int comment_no;
     private int user_no;
     private int board_no;
+    private String user_name;
     private String content;
     private Timestamp create_at;
     private Timestamp update_at;
@@ -15,31 +16,30 @@ public class commentDTO {
     public int getComment_no() {
         return comment_no;
     }
-
     public void setComment_no(int comment_no) {
         this.comment_no = comment_no;
     }
-
     public int getUser_no() {
         return user_no;
     }
-
     public void setUser_no(int user_no) {
         this.user_no = user_no;
     }
-
     public int getBoard_no() {
         return board_no;
     }
-
     public void setBoard_no(int board_no) {
         this.board_no = board_no;
     }
-
+    public String getUser_name() {
+        return user_name;
+    }
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
     public String getContent() {
         return content;
     }
-
     public void setContent(String content) {
         this.content = content;
     }

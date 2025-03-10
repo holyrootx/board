@@ -40,6 +40,13 @@
   word-break: break-word;
 
 }
+.comment-form-container{
+  width: 80%;
+  margin: 6px auto;
+  padding: 6px;
+  background-color: var(--black-7);
+  border-radius: 12px;
+}
 
 .comment-container{
   width: 80%;
@@ -48,7 +55,7 @@
   background-color: var(--black-7);
   border-radius: 12px;
 }
-.comment-continer-title{
+.comment-container-title{
   text-align: left;
   padding-bottom: 6px;
   font-weight: bold;
@@ -108,6 +115,13 @@
   justify-content: space-between;
   align-items: center;
   color: var(--white-9);
+}
+.reply-form-container{
+  width: 80%;
+  margin: 6px auto;
+  padding: 6px;
+  background-color: var(--black-7);
+  border-radius: 12px;
 }
 
 /* 중앙부 관련 클래스 선택자사용해서 스타일 지정한 것 모음 🔺🔺🔺 */
