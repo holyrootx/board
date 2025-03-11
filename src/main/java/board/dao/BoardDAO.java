@@ -23,7 +23,8 @@ public class BoardDAO {
                 + " FROM users u "
                 + " JOIN boards b "
                 + " ON u.user_no = b.user_no "
-                + " WHERE delete_at IS NULL ";
+                + " WHERE delete_at IS NULL "
+                + " ORDER BY create_at DESC";
 
         ArrayList<BoardDTO> boardDTOList = new ArrayList<>();
 

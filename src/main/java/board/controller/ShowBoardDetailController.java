@@ -20,6 +20,7 @@ public class ShowBoardDetailController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=utf-8");
+
         Integer board_no = Integer.valueOf(req.getParameter("board_no"));
         System.out.println(board_no);
 
@@ -29,9 +30,12 @@ public class ShowBoardDetailController extends HttpServlet{
         }
 
         BoardDTO boardDTO = new BoardDTO();
-
         ShowBoardDetailService showBoardDetailService = new ShowBoardDetailService();
+
+        System.out.println("ShowBoardDetailController Board_no == ["+board_no+"]");
+
         boardDTO = showBoardDetailService.getBoardDetail(board_no);
+
         if(boardDTO == null){
             System.out.println("(ShowBoardDetailController)보드DetailDTO객체가 NULL이네?");
             return;
@@ -54,8 +58,11 @@ public class ShowBoardDetailController extends HttpServlet{
         // 보드 자세히보기 + 댓글 배열 전체 세팅해서 뿌려주면됨
         req.setAttribute("commentDTOList",commentDTOList);
         req.setAttribute("boardDTO",boardDTO);
-        System.out.println("Controller에서 setAttribute 완료!!!!!!!!!!");
+        req.setAttribute("board_no",board_no);
+        System.out.println("(ShowBoardDetailController)Controller에서 setAttribute 완료!!!!!!!!!!");
         System.out.println(commentDTOList.size());
+        // resp.sendRedirect("/board/views/showboarddetail.jsp");
+
         getServletContext().getRequestDispatcher("/views/showboarddetail.jsp").forward(req,resp);
 
 
@@ -64,6 +71,5 @@ public class ShowBoardDetailController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }

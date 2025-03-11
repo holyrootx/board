@@ -81,7 +81,25 @@
   background-color: var(--black-2);
   color: var(--white-0);
 }
-
+.hidden-btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.hidden-btn{
+  /* display: none; */
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.update-btn{
+  padding: 2px 6px;
+  background-color: var(--black-2);
+  color: var(--white-0);
+}
+.delete-btn{
+  padding: 2px 6px;
+  background-color: var(--black-2);
+  color: var(--white-0);
+}
 .comment-wrapper{
   padding: 6px 8px;
 }
@@ -120,7 +138,7 @@
   width: 80%;
   margin: 6px auto;
   padding: 6px;
-  background-color: var(--black-7);
+  background-color: var(--black-6);
   border-radius: 12px;
 }
 

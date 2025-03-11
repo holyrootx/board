@@ -30,7 +30,7 @@ public class CommentDAO {
                 + "    FROM comments WHERE ref = 0 "
                 + "    AND delete_at IS NOT NULL "
                 + "    AND board_no = ?) "
-                + " ORDER BY ref , create_at";
+                + " ORDER  BY comment_no ,ref";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,board_no);
@@ -57,5 +57,21 @@ public class CommentDAO {
         return commentDTOList;
     }
 
+    public int writeComment(CommentDTO newCommentDTO){
+        String sql="INSERT INTO comments (comment_no,user_no,board_no,content,create_at,ref)"
+                + " VALUES(COMMENT_SEQ.NEXTVAL,?,?,?,CURRENT_TIMESTAMP,?)";
+        int insertCount = 0;
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,newCommentDTO.getUser_no());
+            pstmt.setInt(2,newCommentDTO.getBoard_no());
+            pstmt.setString(3,newCommentDTO.getContent());
+            pstmt.setInt(4,newCommentDTO.getRef());
+            insertCount = pstmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return insertCount;
+    }
 
 }

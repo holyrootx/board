@@ -53,7 +53,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
           <h2 class="form-intro">글 쓰기 </h2>
             <form method="POST" action="/board/WriteBoardController">
               <div class="input-wrapper">
-                <input type="text" name="board_title" class="input-title" placeholder="제목을 입력하세요">
+                <input type="text" name="board_title" class="input-title" maxlength="20" placeholder="제목을 입력하세요">
               </div>
               <div class="input-wrapper">
                 <textarea type="text" name="board_content" class="input-content"></textarea>
