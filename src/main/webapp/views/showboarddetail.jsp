@@ -53,7 +53,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     %>
     <!-- Main-container Start-->
     <div class="container">
-        <div class="board-container" data-user_no="<%= boardDTO.getUser_no()%>">
+        <div class="board-container" data-user_no="<%= boardDTO.getUser_no()%>" data-board_no="<%= boardDTO.getBoard_no()%>">
             <div class="board-wrapper">
                 <h2 class="title"><%=boardDTO.getTitle()%></h2>
                 <div class="board-info-container">
@@ -68,10 +68,33 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                     <p class="board-content"><%=boardDTO.getContent()%></p>
                 </div>
                 <div class="hidden-btn-container">
-                    <input type="button" class="hidden-btn update-btn" value="수정 하기" onclick="">
-                    <input type="button" class="hidden-btn delete-btn" value="삭제 하기" onclick="">
+                    <input type="button" class="btn-design" value="수정 하기" onclick="showBoardForm(this)">
+                    <input type="button" class="btn-design" value="삭제 하기" onclick="">
                 </div>
             </div>
+            <div class="board-update-wrapper">
+                <div class="comment-info-container">
+                    <div class="author-container">
+                        <span class="author"><%=boardDTO.getUser_name() %></span>
+                    </div>
+                    <div class="create-time-container">
+                        <span class="create-time"><%=boardDTO.getCreate_at() %></span>
+                    </div>
+                </div>
+                <form method="post" action="/board/UpdateBoardController" >
+                    <div class="board-update-content-box">
+                        <input type="text" class="title board-update-title" value="<%= boardDTO.getTitle() %>"></h2>
+                    </div>
+                    <div class="board-update-content-box">
+                        <textarea class="writing-place-board " name="comment_content"><%= boardDTO.getContent() %></textarea>
+                    </div>
+                    <div class="hidden-btn-container">
+                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="reset" class="btn-design" value="취소" onclick="cancleBoardForm(this)">
+                    </div>
+                </form>
+            </div>
+
         </div>
         <div class="comment-form-container">
             <div class="comment-wrapper">
@@ -81,7 +104,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                         <textarea class="writing-place-comment" name="comment_content"></textarea>
                     </div>
                     <div class="btn-container">
-                        <input type="submit" class="write-btn" value="댓글 쓰기">
+                        <input type="submit" class="btn-design" value="댓글 쓰기">
                     </div>
                 </form>
             </div>
@@ -99,7 +122,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         if (commentDTOList.get(i).getRef() == 0){
         // 댓글 인경우
     %>
-        <div class="comment-container" data-user_no="<%= commentDTOList.get(i).getUser_no() %>">
+        <div class="comment-container" data-user_no="<%= commentDTOList.get(i).getUser_no() %>" data-comment_no="<%= commentDTOList.get(i).getComment_no() %>">
             <div class="comment-wrapper">
                 <div class="comment-info-container">
                     <div class="author-container">
@@ -113,9 +136,28 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                     <p class="comment-content"><%=commentDTOList.get(i).getContent() %></p>
                 </div>
                 <div class="hidden-btn-container">
-                    <input type="button" class="hidden-btn update-btn" value="수정 하기" onclick="">
-                    <input type="button" class="hidden-btn delete-btn" value="삭제 하기" onclick="">
+                    <input type="button" class="btn-design" value="수정 하기" onclick="showCommentForm(this)">
+                    <input type="button" class="btn-design" value="삭제 하기" onclick="">
                 </div>
+            </div>
+            <div class="comment-update-wrapper">
+                <div class="comment-info-container">
+                    <div class="author-container">
+                        <span class="author"><%=commentDTOList.get(i).getUser_name() %></span>
+                    </div>
+                    <div class="create-time-container">
+                        <span class="create-time"><%=commentDTOList.get(i).getCreate_at() %></span>
+                    </div>
+                </div>
+                <form method="post" action="/board/UpdateCommentController" >
+                    <div class="comment-update-content-box">
+                        <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
+                    </div>
+                    <div class="hidden-btn-container">
+                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="reset" class="btn-design" value="취소" onclick="cancleCommentForm(this)">
+                    </div>
+                </form>
             </div>
         </div>
         <%
@@ -134,7 +176,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                     <div class="btn-container">
                         <input type="text" name="board_no" value="<%=board_no%>" style="display:none;">
                         <input type="text" name="ref" value="<%=commentDTOList.get(i).getComment_no()%>" style="display:none;">
-                        <input type="submit" class="write-btn" value="답글 쓰기">
+                        <input type="submit" class="btn-design" value="답글 쓰기">
                     </div>
                 </form>
 
@@ -147,7 +189,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         } else{
 
     %>
-        <div class="reply-container" data-user_no="<%= commentDTOList.get(i).getUser_no() %>">
+        <div class="reply-container" data-user_no="<%= commentDTOList.get(i).getUser_no() %>" data-comment_no="<%= commentDTOList.get(i).getComment_no() %>">
             <div class="reply-wrapper">
                 <div class="reply-info-container">
                     <div class="author-container">
@@ -161,9 +203,28 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                     <p class="comment-content"><%=commentDTOList.get(i).getContent() %></p>
                 </div>
                 <div class="hidden-btn-container">
-                    <input type="button" class="hidden-btn update-btn" value="수정 하기" onclick="">
-                    <input type="button" class="hidden-btn delete-btn" value="삭제 하기" onclick="">
+                    <input type="button" class="btn-design" value="수정 하기" onclick="showReplyForm(this)">
+                    <input type="button" class="btn-design" value="삭제 하기" onclick="">
                 </div>
+            </div>
+            <div class="reply-update-wrapper">
+                <div class="comment-info-container">
+                    <div class="author-container">
+                        <span class="author"><%=commentDTOList.get(i).getUser_name() %></span>
+                    </div>
+                    <div class="create-time-container">
+                        <span class="create-time"><%=commentDTOList.get(i).getCreate_at() %></span>
+                    </div>
+                </div>
+                <form method="post" action="/board/UpdateCommentController" >
+                    <div class="comment-update-content-box">
+                        <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
+                    </div>
+                    <div class="hidden-btn-container">
+                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="reset" class="btn-design" value="취소" onclick="cancleReplyForm(this)">
+                    </div>
+                </form>
             </div>
         </div>
         <%
@@ -180,7 +241,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                     <div class="btn-container">
                         <input type="text" name="board_no" value="<%=board_no%>" style="display:none;">
                         <input type="text" name="ref" value="<%=commentDTOList.get(i).getRef()%>" style="display:none;">
-                        <input type="submit" class="write-btn" value="답글 쓰기">
+                        <input type="submit" class="btn-design" value="답글 쓰기">
                     </div>
                 </form>
 
@@ -208,20 +269,86 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     const board = document.querySelector(".board-container");
 
     const commentContainerArr = document.querySelectorAll(".comment-container");
-    commentContainerArr.forEach((commentContainer)=>{
+    commentContainerArr.forEach( (commentContainer) => {
         if(commentContainer.getAttribute("data-user_no") !== sessionId){
             const hiddenBtnContainer = commentContainer.querySelector(".hidden-btn-container");
-            hiddenBtnContainer.style.display = "none";
+            hiddenBtnContainer.classList.add('invalid');
         }
 
     });
     const replyContainerArr = document.querySelectorAll(".reply-container");
-    replyContainerArr.forEach((replyContainer) => {
+    replyContainerArr.forEach( (replyContainer) => {
         if(replyContainer.getAttribute("data-user_no") !== sessionId){
+            //userid와 세션아이디가 다른경우 유효하지않은 버튼으로처리
             const hiddenBtnContainer = replyContainer.querySelector(".hidden-btn-container");
-            hiddenBtnContainer.style.display = "none";
+            hiddenBtnContainer.classList.add('invalid');
         }
     })
+</script>
+<script>
+function showReplyForm(elem){
+    const replyUpdateBtn = elem;
+    let replyWrapper = replyUpdateBtn.closest(".reply-wrapper");
+    replyWrapper.style.display = "none";
+    let replyUpdateWrapper = replyWrapper.closest(".reply-container").querySelector(".reply-update-wrapper");
+    replyUpdateWrapper.style.display = "block";
+
+}
+function showCommentForm(elem){
+    const commentUpdateBtn = elem;
+    let commentWrapper = commentUpdateBtn.closest(".comment-wrapper");
+    commentWrapper.style.display = "none";
+    let commentUpdateWrapper = commentWrapper.closest(".comment-container").querySelector(".comment-update-wrapper");
+    commentUpdateWrapper.style.display = "block";
+}
+
+function showBoardForm(elem){
+    const boardBtn = elem;
+    let boardWrapper = boardBtn.closest(".board-wrapper");
+    boardWrapper.style.display = "none";
+    let boardUpdateWrapper = boardWrapper.closest(".board-container").querySelector(".board-update-wrapper");
+    boardUpdateWrapper.style.display = "block";
+
+
+}
+function cancleReplyForm(elem){
+    const replyCancleBtn = elem;
+    let replyUpdateWrapper = replyCancleBtn.closest(".reply-update-wrapper");
+    replyUpdateWrapper.style.display = "none";
+    let replyWrapper = replyUpdateWrapper.closest(".reply-container").querySelector(".reply-wrapper");
+    replyWrapper.style.display ="block";
+
+}
+function cancleCommentForm(elem){
+    const commentCancleBtn = elem;
+    let commentUpdateWrapper = commentCancleBtn.closest(".comment-update-wrapper");
+    commentUpdateWrapper.style.display = "none";
+    let commentWrapper = commentUpdateWrapper.closest(".comment-container").querySelector(".comment-wrapper");
+    commentWrapper.style.display ="block";
+
+}
+function cancleBoardForm(elem){
+    const cancleBtn = elem;
+    let boardUpdateWrapper = cancleBtn.closest(".board-update-wrapper");
+    boardUpdateWrapper.style.display = "none";
+    let boardWrapper = boardUpdateWrapper.closest(".board-container").querySelector(".board-wrapper");
+    boardWrapper.style.display ="block";
+
+}
+</script>
+<script>
+function updateComment(elem){
+const xhttp = new XMLHttpRequest();
+xhttp.open("POST", "/board/UpdateCommentController");
+xhttp.send();
+
+    $(elem).click(function () {
+    	$.get(Url, function (data, status) {
+    		console.log(`${data}`);
+    	});
+    });
+}
+
 </script>
 </body>
 </html>
