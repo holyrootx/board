@@ -89,7 +89,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                         <textarea class="writing-place-board " name="comment_content"><%= boardDTO.getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
-                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="button" class="btn-design update-board-btn" value="수정 하기" onclick="">
                         <input type="reset" class="btn-design" value="취소" onclick="cancleBoardForm(this)">
                     </div>
                 </form>
@@ -154,7 +154,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                         <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
-                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="submit" class="btn-design update-comment-btn" value="수정 하기" onclick="">
                         <input type="reset" class="btn-design" value="취소" onclick="cancleCommentForm(this)">
                     </div>
                 </form>
@@ -221,7 +221,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                         <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
-                        <input type="submit" class="btn-design" value="수정 하기" onclick="">
+                        <input type="submit" class="btn-design update-comment-btn" value="수정 하기" onclick="">
                         <input type="reset" class="btn-design" value="취소" onclick="cancleReplyForm(this)">
                     </div>
                 </form>
@@ -337,17 +337,39 @@ function cancleBoardForm(elem){
 }
 </script>
 <script>
-function updateComment(elem){
-const xhttp = new XMLHttpRequest();
-xhttp.open("POST", "/board/UpdateCommentController");
-xhttp.send();
 
-    $(elem).click(function () {
-    	$.get(Url, function (data, status) {
-    		console.log(`${data}`);
-    	});
+board.querySelector(".update-board-btn").addEventListener("click",
+    (e) => {
+    if(!confirm("수정하시겠습니까?")){
+        console.log("아니요");
+
+
+    } else{
+        console.log("예");
+        console.log(e.target);
+        let board_no = e.target.closest(".board-container").getAttribute("data-board_no");
+        let user_no = e.target.closest(".board-container").getAttribute("data-user_no");
+        console.log(board_no,user_no);
+        const xhttp = new XMLHttpRequest();
+        let updateBtn = e.target;
+        xhttp.open("POST", "/board/UpdateBoardController", true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
+        xhttp.send(`board_no=${board_no}&user_no=${user_no}`);
+
+        xhttp.onload = function(updateBtn) {
+            if (xhttp.status === 200) {
+                const responseText = xhttp.responseText;
+                const [title, content] = responseText.split("|"); // 구분자로 나눔
+                console.log("제목:", title);
+                console.log("내용:", content);
+                updateBtn.closest(".board-container").querySelector(".board-content").innertext = content;
+                updateBtn.closest(".board-container").querySelector(".title").innertext = title;
+
+            }
+        };
+    }
+
     });
-}
 
 </script>
 </body>
