@@ -1,4 +1,7 @@
 package board.controller;
+import board.dto.BoardDTO;
+import board.service.UpdateBoardService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
@@ -20,26 +23,64 @@ public class UpdateBoardController extends HttpServlet{
         String user_no = req.getParameter("user_no");
         HttpSession session = req.getSession();
 
-        Integer session_user_no = (Integer) session.getAttribute("user_no");
+        String session_user_no = ((Integer)session.getAttribute("user_no")).toString();
 
+        System.out.println(user_no+"<- get User_no : -> session"+session_user_no);
+        System.out.println(user_no.getClass().getName());
+        System.out.println(session_user_no.getClass().getName());
+        // 세션 아이디 체크
         if( !(session_user_no.equals(user_no)) ){
             System.out.println("잘못된 접근입니다.");
             return;
         }
 
+        // board_no 체크
         String board_no = req.getParameter("board_no");
-        if(board_no != null){
-            System.out.println(board_no);
-        } else{
+        if(board_no == null){
             System.out.println("(UpdateBoardController) board_no가 Null인 현상 발생 데이터 전달 현황 체크 바람.");
+            return;
         }
+
+        // 값 제대로 받아오는지 체크
+        UpdateBoardService updateBoardService = new UpdateBoardService();
+        BoardDTO boardDTO;
+        boardDTO = updateBoardService.getBoardByBoardNo(board_no);
+        if (boardDTO == null){
+            System.out.println("(UpdateBoardController) boardDTO가 Null인 현상 발생 데이터 전달 현황 체크 바람.");
+            return;
+        }
+        String updateTitle = req.getParameter("updateTitle");
+        String updateContent = req.getParameter("updateContent");
+        System.out.println(updateTitle);
+        System.out.println(updateContent);
+
+        boardDTO.setTitle(updateTitle);
+        boardDTO.setContent(updateContent);
+
+        System.out.println(boardDTO.getTitle());
+        System.out.println(boardDTO.getContent());
+        // 여기서 board값 세팅 하고나서 update 하면 될듯
+
         resp.setContentType("text/plain; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String title = "게시글 제목";
-        String content = "게시글 내용";
+        boolean isUpdatingSuccessed = false;
+        isUpdatingSuccessed = updateBoardService.updateBoard(boardDTO);
+
+        String title;
+        String content;
+
+        if(!isUpdatingSuccessed){
+            System.out.println("(UpdateBoardController) UpdateBoard메서드에 이상 발생");
+            return;
+        }
+
+        title = boardDTO.getTitle();
+        content = boardDTO.getContent();
 
         // `|` 같은 구분자로 문자열 연결
         resp.getWriter().write(title + "|" + content);
+
+
     }
 }

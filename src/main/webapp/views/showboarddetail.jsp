@@ -86,7 +86,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                         <input type="text" class="title board-update-title" value="<%= boardDTO.getTitle() %>"></h2>
                     </div>
                     <div class="board-update-content-box">
-                        <textarea class="writing-place-board " name="comment_content"><%= boardDTO.getContent() %></textarea>
+                        <textarea class="writing-place-board board-update-content" name="comment_content"><%= boardDTO.getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
                         <input type="button" class="btn-design update-board-btn" value="수정 하기" onclick="">
@@ -335,8 +335,20 @@ function cancleBoardForm(elem){
     boardWrapper.style.display ="block";
 
 }
-</script>
-<script>
+
+const updateCommentBtnArr = document.querySelectorAll(".update-comment-btn");
+replyContainerArr.forEach( (updateCommentBtn) => {
+        updateCommentBtn.addEventListener("click",
+            (e) => {
+            if(!confirm("수정하시겠습니까?")){
+                console.log("아니요");
+
+
+            } else{
+
+            }
+        }
+}
 
 board.querySelector(".update-board-btn").addEventListener("click",
     (e) => {
@@ -349,22 +361,38 @@ board.querySelector(".update-board-btn").addEventListener("click",
         console.log(e.target);
         let board_no = e.target.closest(".board-container").getAttribute("data-board_no");
         let user_no = e.target.closest(".board-container").getAttribute("data-user_no");
-        console.log(board_no,user_no);
-        const xhttp = new XMLHttpRequest();
+
+        let updateTitle = e.target.closest(".board-container").querySelector(".board-update-title").value;
+        let updateContent = e.target.closest(".board-container").querySelector(".board-update-content").value;
         let updateBtn = e.target;
+
+        const xhttp = new XMLHttpRequest();
+        console.log(updateTitle);
+        console.log(updateContent);
         xhttp.open("POST", "/board/UpdateBoardController", true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
-        xhttp.send(`board_no=${board_no}&user_no=${user_no}`);
 
-        xhttp.onload = function(updateBtn) {
+        let postParameter = "board_no=" + board_no + "&user_no=" + user_no + "&updateTitle=" + updateTitle + "&updateContent=" + updateContent;
+        console.log("변수를 따로 만들고 출력");
+        console.log(postParameter);
+        xhttp.send(postParameter);
+
+        xhttp.onload = function() {
             if (xhttp.status === 200) {
                 const responseText = xhttp.responseText;
                 const [title, content] = responseText.split("|"); // 구분자로 나눔
+
                 console.log("제목:", title);
                 console.log("내용:", content);
-                updateBtn.closest(".board-container").querySelector(".board-content").innertext = content;
-                updateBtn.closest(".board-container").querySelector(".title").innertext = title;
+                updateBtn.closest(".board-container").querySelector(".title").innerText = title;
+                updateBtn.closest(".board-container").querySelector(".board-content").innerText = content;
 
+
+
+                let boardUpdateWrapper = updateBtn.closest(".board-update-wrapper");
+                boardUpdateWrapper.style.display = "none";
+                let boardWrapper = boardUpdateWrapper.closest(".board-container").querySelector(".board-wrapper");
+                boardWrapper.style.display ="block";
             }
         };
     }

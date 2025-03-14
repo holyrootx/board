@@ -18,6 +18,35 @@ public class BoardDAO {
         this.conn = conn;
     }
 
+    public BoardDTO getBoardByBoardNo(String board_no){
+        String sql = "SELECT board_no,u.user_no,user_name,title,content,create_at "
+                + " FROM users u "
+                + " JOIN boards b "
+                + " ON u.user_no = b.user_no "
+                + " WHERE board_no = ?";
+        BoardDTO boardDTO = new BoardDTO();
+
+
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,Integer.parseInt(board_no));
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                boardDTO.setBoard_no(rs.getInt("board_no"));
+                boardDTO.setUser_name(rs.getString("user_name"));
+                boardDTO.setUser_no(rs.getInt("user_no"));
+                boardDTO.setContent(rs.getString("content"));
+                boardDTO.setTitle(rs.getString("title"));
+                boardDTO.setCreate_at(rs.getTimestamp("create_at"));
+                boardDTO.setUser_no(rs.getInt("user_no"));
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return boardDTO;
+    }
+
     public ArrayList<BoardDTO> getBoardList(){
         String sql = "SELECT board_no,u.user_no,user_name,title,create_at "
                 + " FROM users u "
@@ -124,6 +153,27 @@ public class BoardDAO {
 
         return boardDTO;
 
+    }
+    public int updateBoard(BoardDTO boardDTO){
+        int updateCount = 0;
+        // UPDATE [테이블] SET [열] = '변경할값' WHERE [조건]
+        String sql = "UPDATE boards "
+                + " SET board_no = ?, "
+                + " title = ?, "
+                + " content = ?, "
+                + " update_at = sysdate "
+                + " WHERE board_no = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,Integer.valueOf(boardDTO.getBoard_no()));
+            pstmt.setString(2,boardDTO.getTitle());
+            pstmt.setString(3,boardDTO.getContent());
+            pstmt.setInt(4,Integer.valueOf(boardDTO.getBoard_no()));
+            updateCount = pstmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return updateCount;
     }
 
 }
