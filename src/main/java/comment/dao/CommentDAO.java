@@ -3,6 +3,8 @@ package comment.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import board.dto.BoardDTO;
 import comment.dto.CommentDTO;
 import java.util.ArrayList;
 import java.sql.SQLException;
@@ -73,5 +75,50 @@ public class CommentDAO {
         }
         return insertCount;
     }
+    public CommentDTO getCommentByCommentNo(String comment_no){
+        String sql = "SELECT comment_no,u.user_no,c.board_no,user_name,content,create_at,update_at "
+                + " FROM users u "
+                + " JOIN comments c "
+                + " ON u.user_no = c.user_no "
+                + " WHERE comment_no = ?";
+        CommentDTO commentDTO = new CommentDTO();
 
+
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,Integer.parseInt(comment_no));
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                commentDTO.setComment_no(rs.getInt("comment_no"));
+                commentDTO.setUser_no(rs.getInt("user_no"));
+                commentDTO.setBoard_no(rs.getInt("board_no"));
+                commentDTO.setUser_name(rs.getString("user_name"));
+                commentDTO.setContent(rs.getString("content"));
+                commentDTO.setCreate_at(rs.getTimestamp("create_at"));
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return commentDTO;
+    }
+    public int updateComment(CommentDTO commentDTO){
+        int updateCount = 0;
+        // UPDATE [테이블] SET [열] = '변경할값' WHERE [조건]
+        // 오타 , comma,
+        String sql = "UPDATE comments "
+                + " SET content = ?, "
+                + " update_at = sysdate "
+                + " WHERE comment_no = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,commentDTO.getContent());
+            pstmt.setInt(2,Integer.valueOf(commentDTO.getComment_no()));
+
+            updateCount = pstmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return updateCount;
+    }
 }

@@ -151,11 +151,11 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                 </div>
                 <form method="post" action="/board/UpdateCommentController" >
                     <div class="comment-update-content-box">
-                        <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
+                        <textarea class="writing-place-comment comment-update-content" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
-                        <input type="submit" class="btn-design update-comment-btn" value="수정 하기" onclick="">
-                        <input type="reset" class="btn-design" value="취소" onclick="cancleCommentForm(this)">
+                        <input type="button" class="btn-design update-comment-btn" value="수정 하기" onclick="">
+                        <input type="button" class="btn-design" value="취소" onclick="cancleCommentForm(this)">
                     </div>
                 </form>
             </div>
@@ -218,11 +218,11 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
                 </div>
                 <form method="post" action="/board/UpdateCommentController" >
                     <div class="comment-update-content-box">
-                        <textarea class="writing-place-comment" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
+                        <textarea class="writing-place-comment reply-update-content" name="comment_content"><%= commentDTOList.get(i).getContent() %></textarea>
                     </div>
                     <div class="hidden-btn-container">
-                        <input type="submit" class="btn-design update-comment-btn" value="수정 하기" onclick="">
-                        <input type="reset" class="btn-design" value="취소" onclick="cancleReplyForm(this)">
+                        <input type="button" class="btn-design update-comment-btn" value="수정 하기" onclick="">
+                        <input type="button" class="btn-design" value="취소" onclick="cancleReplyForm(this)">
                     </div>
                 </form>
             </div>
@@ -267,6 +267,10 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
     sessionId = sessionId.toString();
 
     const board = document.querySelector(".board-container");
+    if(board.getAttribute("data-user_no") !== sessionId){
+        const hiddenBtnContainer = board.querySelector(".hidden-btn-container");
+        hiddenBtnContainer.classList.add('invalid');
+    }
 
     const commentContainerArr = document.querySelectorAll(".comment-container");
     commentContainerArr.forEach( (commentContainer) => {
@@ -317,88 +321,116 @@ function cancleReplyForm(elem){
     replyUpdateWrapper.style.display = "none";
     let replyWrapper = replyUpdateWrapper.closest(".reply-container").querySelector(".reply-wrapper");
     replyWrapper.style.display ="block";
-
 }
+
 function cancleCommentForm(elem){
     const commentCancleBtn = elem;
     let commentUpdateWrapper = commentCancleBtn.closest(".comment-update-wrapper");
     commentUpdateWrapper.style.display = "none";
     let commentWrapper = commentUpdateWrapper.closest(".comment-container").querySelector(".comment-wrapper");
     commentWrapper.style.display ="block";
-
 }
+
 function cancleBoardForm(elem){
     const cancleBtn = elem;
     let boardUpdateWrapper = cancleBtn.closest(".board-update-wrapper");
     boardUpdateWrapper.style.display = "none";
     let boardWrapper = boardUpdateWrapper.closest(".board-container").querySelector(".board-wrapper");
     boardWrapper.style.display ="block";
-
 }
 
+board.querySelector(".update-board-btn").addEventListener("click", (e) => {
+        if(!confirm("수정하시겠습니까?")){
+            console.log("아니요");
+
+
+        } else{
+
+            let board_no = e.target.closest(".board-container").getAttribute("data-board_no");
+            let user_no = e.target.closest(".board-container").getAttribute("data-user_no");
+
+            let updateTitle = e.target.closest(".board-container").querySelector(".board-update-title").value;
+            let updateContent = e.target.closest(".board-container").querySelector(".board-update-content").value;
+            let updateBtn = e.target;
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/board/UpdateBoardController", true);
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
+
+            let postParameter = "board_no=" + board_no + "&user_no=" + user_no + "&updateTitle=" + updateTitle + "&updateContent=" + updateContent;
+
+            xhttp.send(postParameter);
+
+            xhttp.onload = function() {
+                if (xhttp.status === 200) {
+                    const responseText = xhttp.responseText;
+                    const [title, content] = responseText.split("|"); // 구분자로 나눔
+
+                    console.log("제목:", title);
+                    console.log("내용:", content);
+                    updateBtn.closest(".board-container").querySelector(".title").innerText = title;
+                    updateBtn.closest(".board-container").querySelector(".board-content").innerText = content;
+
+
+
+                    let boardUpdateWrapper = updateBtn.closest(".board-update-wrapper");
+                    boardUpdateWrapper.style.display = "none";
+                    let boardWrapper = boardUpdateWrapper.closest(".board-container").querySelector(".board-wrapper");
+                    boardWrapper.style.display ="block";
+                }
+            }
+        }});
+
 const updateCommentBtnArr = document.querySelectorAll(".update-comment-btn");
-replyContainerArr.forEach( (updateCommentBtn) => {
+updateCommentBtnArr.forEach( (updateCommentBtn) => {
         updateCommentBtn.addEventListener("click",
             (e) => {
             if(!confirm("수정하시겠습니까?")){
                 console.log("아니요");
-
+                console.log(e.target);
 
             } else{
+              console.log("예");
+              console.log(e.target);
 
-            }
+              const updateBtn = e.target;
+              let comment_no = updateBtn.closest(".comment-container").getAttribute("data-comment_no");
+              let user_no = updateBtn.closest(".comment-container").getAttribute("data-user_no");
+
+              console.log(comment_no,user_no);
+              let updatingContent = updateBtn.closest(".comment-container").querySelector(".comment-update-content").value;
+              console.log(updatingContent)
+
+              let postParameter = "comment_no=" + comment_no + "&user_no=" + user_no + "&updatingContent=" + updatingContent;
+              const xhttp = new XMLHttpRequest();
+              console.log(updatingContent);
+              xhttp.open("POST", "/board/UpdateCommentController", true);
+              xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
+
+
+              console.log("변수를 따로 만들고 출력");
+              console.log(postParameter);
+              xhttp.send(postParameter);
+
+              xhttp.onload = function() {
+                  if (xhttp.status === 200) {
+                      const getNewContent = xhttp.responseText;
+
+                      console.log("내용:", getNewContent);
+                      updateBtn.closest(".comment-container").querySelector(".comment-content").innerText = getNewContent;
+
+
+
+                      let commentUpdateWrapper = updateBtn.closest(".comment-update-wrapper");
+                      commentUpdateWrapper.style.display = "none";
+                      let commentWrapper = commentUpdateWrapper.closest(".comment-container").querySelector(".comment-wrapper");
+                      commentWrapper.style.display ="block";
+                  }
+              }
         }
-}
-
-board.querySelector(".update-board-btn").addEventListener("click",
-    (e) => {
-    if(!confirm("수정하시겠습니까?")){
-        console.log("아니요");
-
-
-    } else{
-        console.log("예");
-        console.log(e.target);
-        let board_no = e.target.closest(".board-container").getAttribute("data-board_no");
-        let user_no = e.target.closest(".board-container").getAttribute("data-user_no");
-
-        let updateTitle = e.target.closest(".board-container").querySelector(".board-update-title").value;
-        let updateContent = e.target.closest(".board-container").querySelector(".board-update-content").value;
-        let updateBtn = e.target;
-
-        const xhttp = new XMLHttpRequest();
-        console.log(updateTitle);
-        console.log(updateContent);
-        xhttp.open("POST", "/board/UpdateBoardController", true);
-        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
-
-        let postParameter = "board_no=" + board_no + "&user_no=" + user_no + "&updateTitle=" + updateTitle + "&updateContent=" + updateContent;
-        console.log("변수를 따로 만들고 출력");
-        console.log(postParameter);
-        xhttp.send(postParameter);
-
-        xhttp.onload = function() {
-            if (xhttp.status === 200) {
-                const responseText = xhttp.responseText;
-                const [title, content] = responseText.split("|"); // 구분자로 나눔
-
-                console.log("제목:", title);
-                console.log("내용:", content);
-                updateBtn.closest(".board-container").querySelector(".title").innerText = title;
-                updateBtn.closest(".board-container").querySelector(".board-content").innerText = content;
-
-
-
-                let boardUpdateWrapper = updateBtn.closest(".board-update-wrapper");
-                boardUpdateWrapper.style.display = "none";
-                let boardWrapper = boardUpdateWrapper.closest(".board-container").querySelector(".board-wrapper");
-                boardWrapper.style.display ="block";
-            }
-        };
-    }
-
-    });
-
+      }
+  )}
+);
 </script>
 </body>
 </html>

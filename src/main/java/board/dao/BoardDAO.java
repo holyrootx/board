@@ -158,17 +158,15 @@ public class BoardDAO {
         int updateCount = 0;
         // UPDATE [테이블] SET [열] = '변경할값' WHERE [조건]
         String sql = "UPDATE boards "
-                + " SET board_no = ?, "
-                + " title = ?, "
+                + " SET title = ?, "
                 + " content = ?, "
                 + " update_at = sysdate "
                 + " WHERE board_no = ?";
         try{
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,Integer.valueOf(boardDTO.getBoard_no()));
-            pstmt.setString(2,boardDTO.getTitle());
-            pstmt.setString(3,boardDTO.getContent());
-            pstmt.setInt(4,Integer.valueOf(boardDTO.getBoard_no()));
+            pstmt.setString(1,boardDTO.getTitle());
+            pstmt.setString(2,boardDTO.getContent());
+            pstmt.setInt(3,Integer.valueOf(boardDTO.getBoard_no()));
             updateCount = pstmt.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
