@@ -133,7 +133,7 @@ public class BoardDAO {
                 + " FROM  users u "
                 + " JOIN boards b "
                 + " ON u.user_no = b.user_no"
-                + " WHERE b.board_no = ?";
+                + " WHERE b.board_no = ? AND delete_at IS NULL";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,board_no);
@@ -173,5 +173,22 @@ public class BoardDAO {
         }
         return updateCount;
     }
+
+    public int deleteBoard(String board_no){
+        int updateCount = 0;
+
+        String sql = " UPDATE boards"
+                + " SET delete_at = sysdate"
+                + " WHERE board_no = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,Integer.valueOf(board_no));
+
+            updateCount = pstmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return updateCount;
+    };
 
 }
